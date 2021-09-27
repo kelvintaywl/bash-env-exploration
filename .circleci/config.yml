@@ -15,7 +15,7 @@ jobs:
             echo "export COLOR=${COLOR}" >> $BASH_ENV
           environment:
             COLOR: "green"
-       - run:
+      - run:
           name: Print COLOR
           command: |
             echo $COLOR
