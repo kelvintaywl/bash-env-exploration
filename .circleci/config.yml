@@ -15,6 +15,11 @@ jobs:
             echo "export COLOR=${COLOR}" >> $BASH_ENV
           environment:
             COLOR: "green"
+       - run:
+          name: Print COLOR
+          command: |
+            echo $COLOR
+
   step-b:
     docker:
       - image: cimg/base:stable
@@ -24,9 +29,9 @@ jobs:
           command: |
             echo $BASH_ENV
       - run:
-          name: See contents of BASH_ENV
+          name: See env vars
           command: |
-            cat $BASH_ENV
+            env
 
 workflows:
   main:
