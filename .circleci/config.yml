@@ -1,17 +1,35 @@
 version: 2.1
 
 jobs:
-  echo:
+  step-a:
     docker:
       - image: cimg/base:stable
     steps:
       - run:
-          name: Greet
-          command: echo "I love ${COLOR} builds."
+          name: print BASH_ENV location
+          command: |
+            echo $BASH_ENV
+      - run:
+          name: Save COLOR to BASH_ENV
+          command: |
+            echo "export COLOR=${COLOR}" >> $BASH_ENV
           environment:
             COLOR: "green"
+  step-b:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run:
+          name: print BASH_ENV location
+          command: |
+            echo $BASH_ENV
+      - run:
+          name: See contents of BASH_ENV
+          command: |
+            cat $BASH_ENV
 
 workflows:
   main:
     jobs:
-      - echo
+      - step-a
+      - step-b
